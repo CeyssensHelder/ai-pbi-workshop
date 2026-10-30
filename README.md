@@ -49,5 +49,7 @@ Then reopen `pbi/ContosoWorkshop.pbip`.
 - Whatever Claude queries is sent to Anthropic. That's fine for this synthetic data, but real data needs IT and compliance approval first.
 - Sharing a report with colleagues through the Power BI Service needs Pro licences. This workshop stays in Desktop.
 
-## Data source
-Contoso V2 sample data by SQLBI ([Contoso Data Generator](https://github.com/sql-bi/Contoso-Data-Generator-V2), MIT). All people and companies are fictitious.
+## Data source and licence
+Contoso V2 sample data by SQLBI ([Contoso Data Generator](https://github.com/sql-bi/Contoso-Data-Generator-V2), MIT). It's downloaded by the scripts and isn't stored in this repo. All people and companies are fictitious.
+
+This workshop kit is MIT-licensed (see `LICENSE`). Note that `answer_key/` is public: it's presenter material, not a secret.
