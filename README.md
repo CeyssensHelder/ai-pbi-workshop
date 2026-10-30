@@ -41,7 +41,8 @@ All commands are for **PowerShell on Windows**. They use `winget`, which is buil
    git clone https://github.com/CeyssensHelder/ai-pbi-workshop.git "AI in Business Reporting"
    cd "AI in Business Reporting"
    ```
-3. **Power BI Desktop preview features:** File → Options → Preview features → enable *Power BI Project (.pbip) save option*, *Store semantic model using TMDL format* and *Store reports using enhanced metadata format (PBIR)*. Restart Desktop.
+3. **Power BI Desktop version:** nothing to enable. Since Microsoft made developer mode generally available (rolled out in September 2026), Power BI Project (.pbip), TMDL and the PBIR report format are standard in Desktop. Just make sure Desktop is up to date (`winget upgrade --id Microsoft.PowerBI -e`, or via the Store).
+   - On an older build that has no *Power BI Project (\*.pbip)* type under *File → Save as*: update Desktop, or enable the PBIP, TMDL and PBIR options under *File → Options → Preview features* and restart.
 4. **Data** (about 1 minute; downloads ~9 MB from SQLBI):
    ```powershell
    python -m venv .venv
