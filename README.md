@@ -63,6 +63,62 @@ All commands are for **PowerShell on Windows**. They use `winget`, which is buil
    - Check: ask Claude "Connect to 'ContosoWorkshop' in Power BI Desktop and list the tables."
 7. **Optional, safe exploration:** add `"--readonly"` to the args in `.mcp.json` while you explore. The server can't change the model then.
 
+## The workflow: meaning first, dashboards second
+Work in this order, the first time you use a dataset:
+
+| Phase | What happens | Who decides | Done when |
+|---|---|---|---|
+| **1. Understand the data** | Claude profiles the raw tables: what's in them, how they connect, what looks wrong | Claude reports, you read | You know what the data can and can't answer |
+| **2. Build the semantic layer** | Agree on business names and KPI definitions, fix data issues, and Claude applies them to the model and checks the totals | **The business user**: every definition is confirmed, never guessed | `semantic/glossary.yaml` is confirmed and the measures match the golden answers |
+| **3. Build reports** | Plain-language request → clarifying questions → verified numbers → report page | The business user says *what*, Claude does the *how* | The page renders and its numbers are verified |
+
+Phases 1 and 2 happen **once per dataset**. After that, every new report request goes straight to phase 3 and reuses the same definitions. That reuse is what makes this faster than the old way.
+
+### Why not go straight to dashboards?
+You can ask for a dashboard right away, but it will either be wrong or slow:
+- **Wrong numbers.** The raw data has 40 duplicate order lines. A dashboard built straight on the raw data shows 2023 Net Sales of $31,881,546 instead of $31,871,231. Trailing spaces split "Contoso" and "Contoso " into two brands, so Contoso units show as 30,244 instead of 33,566. Nobody notices until finance does.
+- **Guessed meanings.** Does "revenue" mean before or after discount? Is `unt_cst` unit cost or a customer ID? Claude has to guess, and a guess that looks plausible is the most dangerous kind of mistake.
+- **Inconsistent reports.** If every dashboard defines "active customer" on its own, two reports will show two different numbers in the same meeting.
+- **It doesn't actually save time.** The report skill checks every term against the glossary. With no glossary, it stops to ask you about each term anyway, inside a report request, one question at a time.
+
+Skipping phase 2 just moves the work into every single report. Doing it once moves it out of all of them.
+
+## Example prompts
+Write the way you'd talk to a colleague. You don't need to name a skill: Claude picks the right one from your request. To force one, type `/building-semantic-layer` or `/building-pbi-report`.
+
+**Phase 1: understand the data**
+```
+Look at the data in data/legacy and tell me in plain language what's in it and what looks wrong.
+Which questions can this data answer, and which can't it answer?
+What does one row in the sales table represent?
+```
+
+**Phase 2: build the semantic layer**
+```
+Help me make this data understandable for the business. Propose business names and definitions, and ask me about anything you're unsure of.
+Let's agree on the KPIs: revenue, margin, orders and active customers. Propose definitions and I'll confirm them.
+"Revenue" always means sales after discounts, in USD. Add that to the glossary.
+Apply the glossary to the model and check the totals against the golden answers.
+Is anything in the glossary still unconfirmed?
+```
+
+**Phase 3: build reports**
+```
+I'm presenting to the sales leadership. I need a one-page overview of last year: revenue, margin, active customers, which categories and countries drive it, and the monthly trend versus the year before.
+Finance wants a margin page: gross margin % by category and brand for 2023, with the categories below 50% highlighted.
+Make a page comparing online and physical stores: revenue, orders and average order value per year.
+Show me the top 10 customers by revenue in 2023, with their country and number of orders.
+Compliance asks for a data-quality page: duplicate lines removed, customers without a city, and sales in stores after their closing date.
+```
+
+**Questions and checks, at any time**
+```
+How many active customers did we have in 2023?
+How is "Gross Margin %" calculated, in plain words?
+Why does this number differ from last week's report?
+Add a card with our revenue in euros.   (it should ask how to convert)
+```
+
 ## Reset between rehearsals
 Close Power BI Desktop first, then:
 ```powershell
