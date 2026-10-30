@@ -20,30 +20,57 @@ A 1-hour internal workshop showing how business users (finance, compliance, sale
 | `CLAUDE.md` | Project rules Claude follows (glossary first, verify numbers, commit before writing) |
 
 ## One-time setup (per presenter laptop)
-1. **Install:** [Power BI Desktop](https://aka.ms/pbidesktop) (free), [Node.js](https://nodejs.org) LTS, Python 3.11+, Git, and the Claude desktop app (paid account).
-2. **Power BI Desktop preview features:** File → Options → Preview features → enable *Power BI Project (.pbip) save option*, *Store semantic model using TMDL format* and *Store reports using enhanced metadata format (PBIR)*. Restart Desktop.
-3. **Data:**
-   ```bash
-   python -m venv .venv
-   .venv/Scripts/python.exe -m pip install -r requirements.txt
-   .venv/Scripts/python.exe scripts/download_contoso.py 100k
-   .venv/Scripts/python.exe scripts/make_legacy_dataset.py
-   .venv/Scripts/python.exe scripts/golden_answers.py
+All commands are for **PowerShell on Windows**. They use `winget`, which is built into Windows 10/11. Skip any tool you already have (check with the version command under each one).
+
+1. **Install the tools.** Run each command, then close and reopen PowerShell so the new tools are found.
+
+   | Tool | Install | Check |
+   |---|---|---|
+   | Git | `winget install --id Git.Git -e` | `git --version` |
+   | Python 3.12 | `winget install --id Python.Python.3.12 -e` | `python --version` (3.11 or newer) |
+   | Node.js LTS (runs the Power BI MCP server) | `winget install --id OpenJS.NodeJS.LTS -e` | `node --version` and `npx --version` |
+   | Power BI Desktop (free) | `winget install --id Microsoft.PowerBI -e` | Start menu → *Power BI Desktop* |
+   | Claude desktop app (paid account) | `winget install --id Anthropic.Claude -e` | Start menu → *Claude*, then sign in |
+
+   - **Power BI Desktop:** if your company manages software through the Microsoft Store, use `winget install --id 9NTXR16HNW1T --source msstore` instead. Either version works.
+   - **Anaconda users:** a `(base)` prompt means conda's Python comes first on your PATH. That's fine: step 4 creates a separate `.venv` anyway.
+
+2. **Get the project:**
+   ```powershell
+   cd $HOME\Documents
+   git clone https://github.com/CeyssensHelder/ai-pbi-workshop.git "AI in Business Reporting"
+   cd "AI in Business Reporting"
    ```
-4. **Starter Power BI project** (manual, about 5 minutes): in Power BI Desktop, *Get data → Text/CSV*, load the 5 files from `data/legacy/` **without changing anything**, then *File → Save as → Power BI Project* to `pbi/ContosoWorkshop.pbip`. Commit it: this is the reset point for every rehearsal.
-5. **Claude:** open this folder in the Claude desktop app (Code tab) and trust the folder.
+3. **Power BI Desktop preview features:** File → Options → Preview features → enable *Power BI Project (.pbip) save option*, *Store semantic model using TMDL format* and *Store reports using enhanced metadata format (PBIR)*. Restart Desktop.
+4. **Data** (about 1 minute; downloads ~9 MB from SQLBI):
+   ```powershell
+   python -m venv .venv
+   .venv\Scripts\python.exe -m pip install -r requirements.txt
+   .venv\Scripts\python.exe scripts\download_contoso.py 100k
+   .venv\Scripts\python.exe scripts\make_legacy_dataset.py
+   .venv\Scripts\python.exe scripts\golden_answers.py
+   ```
+   Check: `data\legacy\` should contain 5 CSV files.
+5. **Starter Power BI project** (manual, about 5 minutes): in Power BI Desktop, *Get data → Text/CSV*, load the 5 files from `data/legacy/` **without changing anything**, then *File → Save as → Power BI Project* to `pbi/ContosoWorkshop.pbip`. Commit it: this is the reset point for every rehearsal.
+   ```powershell
+   git add pbi
+   git commit -m "Starter Power BI project"
+   ```
+6. **Claude:** open this folder in the Claude desktop app (Code tab) and trust the folder.
    - The Power BI MCP server (`.mcp.json` → `@microsoft/powerbi-modeling-mcp`) starts automatically. On first use you're asked to accept Microsoft's EULA. Read it and accept it yourself.
    - Install the Microsoft `powerbi-authoring` plugin when prompted (configured in `.claude/settings.json`; marketplace `microsoft/skills-for-fabric`). It provides the PBIR report-writing skills.
    - Check: ask Claude "Connect to 'ContosoWorkshop' in Power BI Desktop and list the tables."
-6. **Optional, safe exploration:** add `"--readonly"` to the args in `.mcp.json` while you explore. The server can't change the model then.
+7. **Optional, safe exploration:** add `"--readonly"` to the args in `.mcp.json` while you explore. The server can't change the model then.
 
 ## Reset between rehearsals
-```bash
-git checkout -- pbi semantic && git clean -fd pbi semantic
+Close Power BI Desktop first, then:
+```powershell
+git checkout -- pbi semantic
+git clean -fd pbi semantic
 ```
 Then reopen `pbi/ContosoWorkshop.pbip`.
 
-## Known limits (say these out loud in the workshop)
+## Known limits
 - The Microsoft MCP server is in **public preview**. It edits the model, not report pages.
 - Report pages are written as PBIR files: Desktop has to be closed and reopened to see them, and layout often needs a manual touch-up.
 - Whatever Claude queries is sent to Anthropic. That's fine for this synthetic data, but real data needs IT and compliance approval first.
