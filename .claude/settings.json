@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(./answer_key/**)",
+      "Bash(cat answer_key/*)",
+      "Bash(type answer_key*)",
+      "Bash(Get-Content answer_key*)"
+    ]
+  },
+  "extraKnownMarketplaces": {
+    "fabric-collection": {
+      "source": { "source": "github", "repo": "microsoft/skills-for-fabric" }
+    }
+  },
+  "enabledPlugins": {
+    "powerbi-authoring@fabric-collection": true
+  }
+}

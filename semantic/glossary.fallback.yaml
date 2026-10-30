@@ -1,0 +1,171 @@
+# Complete, confirmed glossary for the workshop dataset.
+# Fallback for the live demo: copy to semantic/glossary.yaml if the interview runs long or goes wrong.
+version: 1
+model: ContosoWorkshop
+updated: 2026-10-27
+
+tables:
+  - source: fct_sls_ln
+    name: Sales
+    description: One row per order line. All amounts are in USD.
+    grain: ord_id + ln_nbr
+    columns:
+      - {source: ord_id, name: Order Number, description: Order identifier; one order has one or more lines., confirmed: true}
+      - {source: ln_nbr, name: Line Number, description: Position of the line within the order., hidden: true, confirmed: true}
+      - {source: ord_dt, name: Order Date, description: Date the order was placed. Drives all time analysis., confirmed: true}
+      - {source: dlvr_dt, name: Delivery Date, description: Date the order was delivered., confirmed: true}
+      - {source: cst_id, name: Customer Key, hidden: true, confirmed: true}
+      - {source: str_id, name: Store Key, hidden: true, confirmed: true}
+      - {source: prd_id, name: Product Key, hidden: true, confirmed: true}
+      - {source: qty, name: Quantity, description: Units sold on the line., synonyms: [units, volume], format: "#,0", confirmed: true}
+      - {source: unt_lst_prc, name: List Price, description: Price per unit before discount, USD., format: "$#,0.00", hidden: true, confirmed: true}
+      - {source: unt_net_prc, name: Net Price, description: Price per unit after discount, USD., synonyms: [selling price], format: "$#,0.00", hidden: true, confirmed: true}
+      - {source: unt_cst, name: Unit Cost, description: Cost per unit, USD. 'cst' here means cost, not customer., format: "$#,0.00", hidden: true, confirmed: true}
+      - {source: crncy_cd, name: Currency, description: Currency the customer paid in., confirmed: true}
+      - {source: fx_rt, name: Exchange Rate, description: USD to the order currency; multiply a USD amount to get local currency., hidden: true, confirmed: true}
+
+  - source: dim_cst
+    name: Customer
+    description: One row per customer who has ordered at least once.
+    grain: cst_id
+    columns:
+      - {source: cst_id, name: Customer Key, hidden: true, confirmed: true}
+      - {source: cst_full_nm, name: Customer Name, description: First and last name., synonyms: [client, buyer], confirmed: true}
+      - {source: gndr_cd, name: Gender, description: "Decoded from M/F to Male/Female.", confirmed: true}
+      - {source: brth_dt, name: Birth Date, confirmed: true}
+      - {source: cty_nm, name: City, description: "Customer city; about 2% unknown (shown as 'Unknown').", confirmed: true}
+      - {source: st_cd, name: State Code, confirmed: true}
+      - {source: cntry_cd, name: Country Code, hidden: true, confirmed: true}
+      - {source: cntry_nm, name: Country, description: Customer country., confirmed: true}
+      - {source: cntnt_nm, name: Continent, description: Customer continent., synonyms: [region], confirmed: true}
+      - {source: ocptn_txt, name: Occupation, confirmed: true}
+
+  - source: dim_prd
+    name: Product
+    grain: prd_id
+    columns:
+      - {source: prd_id, name: Product Key, hidden: true, confirmed: true}
+      - {source: prd_cd, name: Product Code, confirmed: true}
+      - {source: prd_nm, name: Product Name, synonyms: [item, article, SKU], confirmed: true}
+      - {source: mfr_nm, name: Manufacturer, confirmed: true}
+      - {source: brnd_nm, name: Brand, description: Trimmed (source has trailing spaces)., confirmed: true}
+      - {source: clr_nm, name: Color, confirmed: true}
+      - {source: std_cst, name: Standard Cost, description: Catalogue cost. Not used for margin; use Sales Unit Cost., hidden: true, confirmed: true}
+      - {source: lst_prc, name: Catalogue Price, description: Catalogue price. Not used for revenue., hidden: true, confirmed: true}
+      - {source: cat_nm, name: Category, description: Trimmed (source has trailing spaces)., synonyms: [product group], confirmed: true}
+      - {source: sub_cat_nm, name: Subcategory, confirmed: true}
+
+  - source: dim_str
+    name: Store
+    grain: str_id
+    columns:
+      - {source: str_id, name: Store Key, hidden: true, confirmed: true}
+      - {source: str_cd, name: Store Code, hidden: true, confirmed: true}
+      - {source: str_desc, name: Store Name, synonyms: [shop, branch], confirmed: true}
+      - {source: cntry_nm, name: Store Country, description: "Country of the store; 'Online' is the web shop.", confirmed: true}
+      - {source: st_nm, name: Store Region, confirmed: true}
+      - {source: opn_dt, name: Open Date, confirmed: true}
+      - {source: cls_dt, name: Close Date, description: Empty while the store is open., confirmed: true}
+      - {source: flr_sz, name: Floor Size (m²), format: "#,0", confirmed: true}
+      - {source: sts_cd, name: Store Status, description: "Decoded: A = Active, C = Closed, R = Restructured.", confirmed: true}
+
+  - source: dim_cal
+    name: Date
+    description: Calendar 2015-2024. Sales run until 2024-04-20, so 2024 is a partial year.
+    grain: cal_dt
+    mark_as_date_table: true
+    columns:
+      - {source: cal_dt, name: Date, confirmed: true}
+      - {source: yr_nbr, name: Year, confirmed: true}
+      - {source: qtr_cd, name: Quarter, confirmed: true}
+      - {source: mth_nbr, name: Month Number, hidden: true, confirmed: true}
+      - {source: mth_nm, name: Month, sort_by: Month Number, confirmed: true}
+      - {source: yr_mth_txt, name: Year Month, sort_by: Year Month Number, confirmed: true}
+      - {source: yr_mth_nbr, name: Year Month Number, hidden: true, confirmed: true}
+      - {source: dow_nm, name: Day of Week, confirmed: true}
+      - {source: wrk_day_flg, name: Working Day, description: "Y/N decoded to Yes/No.", confirmed: true}
+
+relationships:
+  - {from: "Sales[Customer Key]", to: "Customer[Customer Key]", cardinality: many-to-one, confirmed: true}
+  - {from: "Sales[Product Key]", to: "Product[Product Key]", cardinality: many-to-one, confirmed: true}
+  - {from: "Sales[Store Key]", to: "Store[Store Key]", cardinality: many-to-one, confirmed: true}
+  - {from: "Sales[Order Date]", to: "Date[Date]", cardinality: many-to-one, confirmed: true}
+
+measures:
+  - name: Net Sales
+    definition: Revenue after discounts, in USD.
+    dax: SUMX(Sales, Sales[Quantity] * Sales[Net Price])
+    format: "$#,0"
+    synonyms: [revenue, sales, turnover, sales amount]
+    owner: Finance
+    confirmed: true
+  - name: Gross Sales
+    definition: Revenue at list price, before discounts.
+    dax: SUMX(Sales, Sales[Quantity] * Sales[List Price])
+    format: "$#,0"
+    owner: Finance
+    confirmed: true
+  - name: Total Cost
+    definition: Cost of the goods sold.
+    dax: SUMX(Sales, Sales[Quantity] * Sales[Unit Cost])
+    format: "$#,0"
+    synonyms: [COGS, cost of sales]
+    owner: Finance
+    confirmed: true
+  - name: Gross Margin
+    dax: "[Net Sales] - [Total Cost]"
+    format: "$#,0"
+    synonyms: [profit, margin]
+    owner: Finance
+    confirmed: true
+  - name: Gross Margin %
+    dax: DIVIDE([Gross Margin], [Net Sales])
+    format: "0.0%"
+    owner: Finance
+    confirmed: true
+  - name: Discount %
+    definition: Share of list price given away as discount.
+    dax: 1 - DIVIDE([Net Sales], [Gross Sales])
+    format: "0.0%"
+    owner: Sales
+    confirmed: true
+  - name: Orders
+    dax: DISTINCTCOUNT(Sales[Order Number])
+    format: "#,0"
+    synonyms: [number of orders, transactions]
+    confirmed: true
+  - name: Average Order Value
+    dax: DIVIDE([Net Sales], [Orders])
+    format: "$#,0.00"
+    synonyms: [AOV, basket size]
+    confirmed: true
+  - name: Units Sold
+    dax: SUM(Sales[Quantity])
+    format: "#,0"
+    synonyms: [volume, quantity]
+    confirmed: true
+  - name: Active Customers
+    definition: Customers with at least one order in the selected period.
+    dax: DISTINCTCOUNT(Sales[Customer Key])
+    format: "#,0"
+    synonyms: [buying customers]
+    owner: Sales
+    confirmed: true
+  - name: Net Sales (Local Currency)
+    definition: Net Sales converted to the currency the customer paid in. Only meaningful when filtered to one currency.
+    dax: SUMX(Sales, Sales[Quantity] * Sales[Net Price] * Sales[Exchange Rate])
+    format: "#,0"
+    owner: Finance
+    confirmed: true
+
+terms:
+  - {term: Revenue, definition: Means Net Sales unless the user says gross., implemented_by: Net Sales, confirmed: true}
+  - {term: Active customer, definition: At least one order in the selected period., implemented_by: Active Customers, confirmed: true}
+  - {term: Last full year, definition: "2023 (2024 data stops on 20 April).", confirmed: true}
+  - {term: Region, definition: "Customer Continent by default; Store Country when the user talks about stores.", confirmed: true}
+
+data_quality:
+  - {issue: 40 duplicate sales lines (same order number + line number), decision: Remove duplicates in Power Query on ord_id + ln_nbr, confirmed: true}
+  - {issue: Trailing spaces in brand, category and some names, decision: Trim all text columns in Power Query, confirmed: true}
+  - {issue: About 2% of customers have no city, decision: "Replace empty with 'Unknown'", confirmed: true}
+  - {issue: 2024 is a partial year, decision: Default year comparisons to full years; label 2024 as YTD, confirmed: true}

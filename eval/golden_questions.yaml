@@ -1,0 +1,49 @@
+last_full_year: 2023
+questions:
+- id: net_sales_all_time
+  question: What are our total net sales (USD) across all years?
+  expected: 203723865.76
+  tolerance: 0.01
+  naive_if_duplicates_kept: 203785684.77
+- id: net_sales_last_full_year
+  question: What were net sales in 2023?
+  expected: 31871231.12
+  tolerance: 0.01
+  naive_if_duplicates_kept: 31881546.35
+- id: gross_margin_pct_last_full_year
+  question: What was our gross margin % in 2023?
+  expected: 0.5608
+  tolerance: 0.0005
+- id: discount_pct_last_full_year
+  question: What was the average discount % in 2023?
+  expected: 0.0599
+  tolerance: 0.0005
+- id: orders_last_full_year
+  question: How many orders did we receive in 2023?
+  expected: 15503
+- id: avg_order_value_last_full_year
+  question: What was the average order value in 2023?
+  expected: 2055.81
+  tolerance: 0.01
+  naive_if_duplicates_kept: 2056.48
+- id: active_customers_last_full_year
+  question: How many active customers did we have in 2023?
+  expected: 13746
+- id: top_category_last_full_year
+  question: Which product category sold the most (net sales) in 2023?
+  expected: Computers
+- id: top_category_net_sales_last_full_year
+  question: What were the net sales of that top category in 2023?
+  expected: 11222619.67
+  tolerance: 0.01
+  naive_if_duplicates_kept: 11231847.38
+- id: top_store_country_last_full_year
+  question: Which store country had the highest net sales in 2023?
+  expected: Online
+- id: top_customer_continent_last_full_year
+  question: Which customer continent bought the most in 2023?
+  expected: North America
+- id: units_sold_contoso_brand_last_full_year
+  question: How many Contoso-brand units did we sell in 2023?
+  expected: 33566
+  naive_if_duplicates_kept: 33572

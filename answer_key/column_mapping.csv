@@ -1,0 +1,52 @@
+table,legacy_column,source_column,business_meaning
+fct_sls_ln,ord_id,OrderKey,Order number (one order has several lines)
+fct_sls_ln,ln_nbr,LineNumber,Line number within the order
+fct_sls_ln,ord_dt,OrderDate,Order date
+fct_sls_ln,dlvr_dt,DeliveryDate,Delivery date
+fct_sls_ln,cst_id,CustomerKey,Customer key (FK to dim_cst)
+fct_sls_ln,str_id,StoreKey,Store key (FK to dim_str)
+fct_sls_ln,prd_id,ProductKey,Product key (FK to dim_prd)
+fct_sls_ln,qty,Quantity,Units sold on the line
+fct_sls_ln,unt_lst_prc,UnitPrice,"List price per unit, in USD, before discount"
+fct_sls_ln,unt_net_prc,NetPrice,"Net price per unit, in USD, after discount"
+fct_sls_ln,unt_cst,UnitCost,"Cost per unit, in USD (note: 'cst' here means cost, not customer)"
+fct_sls_ln,crncy_cd,CurrencyCode,Currency the customer paid in
+fct_sls_ln,fx_rt,ExchangeRate,Rate from USD to crncy_cd; multiply USD amounts to get local currency
+dim_cst,cst_id,CustomerKey,Customer key
+dim_cst,cst_full_nm,FullName,Customer full name
+dim_cst,gndr_cd,Gender,Gender code (M/F)
+dim_cst,brth_dt,Birthday,Date of birth
+dim_cst,cty_nm,City,City
+dim_cst,st_cd,State,State / province code
+dim_cst,cntry_cd,Country,Country code (ISO-2)
+dim_cst,cntry_nm,CountryFull,Country name
+dim_cst,cntnt_nm,Continent,Continent
+dim_cst,ocptn_txt,Occupation,Occupation
+dim_prd,prd_id,ProductKey,Product key
+dim_prd,prd_cd,ProductCode,Product code
+dim_prd,prd_nm,ProductName,Product name
+dim_prd,mfr_nm,Manufacturer,Manufacturer
+dim_prd,brnd_nm,Brand,Brand
+dim_prd,clr_nm,Color,Colour
+dim_prd,std_cst,Cost,"Standard cost per unit, USD (catalogue value, not the transactional cost)"
+dim_prd,lst_prc,Price,"Catalogue list price per unit, USD"
+dim_prd,cat_nm,CategoryName,Product category
+dim_prd,sub_cat_nm,SubCategoryName,Product subcategory
+dim_str,str_id,StoreKey,Store key
+dim_str,str_cd,StoreCode,Store code
+dim_str,cntry_nm,CountryName,Store country
+dim_str,st_nm,State,Store state / region
+dim_str,opn_dt,OpenDate,Store opening date
+dim_str,cls_dt,CloseDate,Store closing date (empty = still open)
+dim_str,str_desc,Description,Store name
+dim_str,flr_sz,SquareMeters,Floor size in square metres
+dim_str,sts_cd,Status,"Store status code: A = active, C = closed, R = restructured"
+dim_cal,cal_dt,Date,Calendar date
+dim_cal,yr_nbr,Year,Calendar year
+dim_cal,qtr_cd,Quarter,Quarter (Q1-Q4)
+dim_cal,mth_nbr,MonthNumber,Month number (1-12)
+dim_cal,mth_nm,Month,Month name
+dim_cal,yr_mth_txt,YearMonthShort,"Year-month label, e.g. 'Jan 2020'"
+dim_cal,yr_mth_nbr,YearMonthNumber,Sortable year-month number (sort key for yr_mth_txt)
+dim_cal,dow_nm,DayofWeek,Day of week
+dim_cal,wrk_day_flg,WorkingDay,Working day flag (Y/N)
