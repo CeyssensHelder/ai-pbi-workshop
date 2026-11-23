@@ -1,0 +1,128 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/powerbi-desktop-samples/main/Report%20Theme%20JSON%20Schema/reportThemeSchema-2.149.json",
+  "name": "Alderwake Press",
+  "dataColors": [
+    "#163F38",
+    "#AD542F",
+    "#597B91",
+    "#82648A",
+    "#9C7829",
+    "#65816C"
+  ],
+  "good": "#24704C",
+  "neutral": "#936718",
+  "bad": "#AC4039",
+  "foreground": "#20342F",
+  "foregroundNeutralSecondary": "#515F58",
+  "background": "#FFFCF6",
+  "backgroundLight": "#F3EDE1",
+  "backgroundNeutral": "#D6CDBD",
+  "tableAccent": "#AD542F",
+  "textClasses": {
+    "title": {
+      "fontFace": "Georgia",
+      "fontSize": 16,
+      "color": "#163F38"
+    },
+    "header": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 12,
+      "color": "#163F38"
+    },
+    "label": {
+      "fontFace": "Segoe UI",
+      "fontSize": 11,
+      "color": "#20342F"
+    },
+    "callout": {
+      "fontFace": "Georgia",
+      "fontSize": 38,
+      "color": "#163F38"
+    }
+  },
+  "visualStyles": {
+    "page": {
+      "*": {
+        "background": [
+          {
+            "color": {
+              "solid": {
+                "color": "#F3EDE1"
+              }
+            },
+            "transparency": 0
+          }
+        ]
+      }
+    },
+    "*": {
+      "*": {
+        "title": [
+          {
+            "fontFamily": "Georgia",
+            "fontSize": 16,
+            "fontColor": {
+              "solid": {
+                "color": "#163F38"
+              }
+            }
+          }
+        ],
+        "background": [
+          {
+            "show": true,
+            "color": {
+              "solid": {
+                "color": "#FFFCF6"
+              }
+            },
+            "transparency": 0
+          }
+        ],
+        "border": [
+          {
+            "show": true,
+            "color": {
+              "solid": {
+                "color": "#D6CDBD"
+              }
+            },
+            "radius": 0
+          }
+        ],
+        "dropShadow": [
+          {
+            "show": false
+          }
+        ]
+      }
+    },
+    "clusteredColumnChart": {
+      "*": {
+        "legend": [
+          {
+            "position": "Top"
+          }
+        ]
+      }
+    },
+    "cardVisual": {
+      "*": {
+        "value": [
+          {
+            "$id": "default",
+            "fontFamily": "Georgia",
+            "fontSize": 38
+          }
+        ],
+        "label": [
+          {
+            "$id": "default",
+            "fontFamily": "Segoe UI",
+            "fontSize": 13
+          }
+        ]
+      }
+    }
+  }
+}

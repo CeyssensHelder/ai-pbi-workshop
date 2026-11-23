@@ -5,7 +5,8 @@ A 1-hour internal workshop showing how business users (finance, compliance, sale
 **Story:** a cryptic "legacy" extract (`cst_full_nm`, `unt_net_prc`, duplicates, trailing spaces)
 → Claude interviews the user to agree on what things mean (**semantic layer**)
 → Claude builds the model and measures and checks the numbers
-→ Claude builds a report page from a plain-language request.
+→ Claude builds a report page from a plain-language request
+→ the audience gives it a company style using a second, premade report as the reference.
 
 ## What's in here
 | Path | What |
@@ -13,6 +14,9 @@ A 1-hour internal workshop showing how business users (finance, compliance, sale
 | `workshop/runbook.md` | Agenda, exact prompts, fallbacks and talking points for the presenters |
 | `.claude/skills/building-semantic-layer/` | Skill 1: profile the data → interview the user → glossary → apply to the model |
 | `.claude/skills/building-pbi-report/` | Skill 2: business request → verified measures → report page |
+| [Alderwake Press reference report](pbi/AlderwakePress.pbip) | A fictional publisher's circulation review with an editorial masthead, KPI cards, and a quarterly chart. The data is embedded. |
+| `.claude/skills/extracting-pbi-style/` | Skill 3 captures the active theme and any local formatting that gives the reference its identity |
+| `.claude/skills/applying-pbi-style/` | Skill 4 applies that style to another report and checks the existing story and numbers |
 | `semantic/glossary.fallback.yaml` | Complete, confirmed glossary (demo fallback, and an example of the target result) |
 | `eval/golden_questions.yaml` | 12 business questions with independently computed answers |
 | `scripts/` | Download Contoso, build the legacy extract, compute the golden answers |
@@ -71,6 +75,7 @@ Work in this order, the first time you use a dataset:
 | **1. Understand the data** | Claude profiles the raw tables: what's in them, how they connect, what looks wrong | Claude reports, you read | You know what the data can and can't answer |
 | **2. Build the semantic layer** | Agree on business names and KPI definitions, fix data issues, and Claude applies them to the model and checks the totals | **The business user**: every definition is confirmed, never guessed | `semantic/glossary.yaml` is confirmed and the measures match the golden answers |
 | **3. Build reports** | Plain-language request → clarifying questions → verified numbers → report page | The business user says *what*, Claude does the *how* | The page renders and its numbers are verified |
+| **4. Apply company styling** | Extract the style from Alderwake Press and apply it to the finished Contoso report | The business user chooses the reference | The page has the house style and shows the same figures at the same filters |
 
 Phases 1 and 2 happen **once per dataset**. After that, every new report request goes straight to phase 3 and reuses the same definitions. That reuse is what makes this faster than the old way.
 
@@ -119,6 +124,16 @@ Why does this number differ from last week's report?
 Add a card with our revenue in euros.   (it should ask how to convert)
 ```
 
+**Phase 4: give the report the company look**
+
+Open `pbi/AlderwakePress.pbip` to show the reference. On first open, choose **Home → Refresh** to load its eight embedded circulation records. The two prompts below run separately so participants can see what Claude recovered before it changes their sales page.
+
+```
+Our sales page tells the story. Capture the company styling from pbi/AlderwakePress.pbip so we can reuse it. Save the theme and appearance notes in pbi/style-kit/.
+
+Apply that style kit to pbi/ContosoWorkshop.pbip. Keep our sales headline, definitions, filters and numbers. Show me how the finished page compares with the original.
+```
+
 ## Reset between rehearsals
 Close Power BI Desktop first, then:
 ```powershell
@@ -137,3 +152,5 @@ Then reopen `pbi/ContosoWorkshop.pbip`.
 Contoso V2 sample data by SQLBI ([Contoso Data Generator](https://github.com/sql-bi/Contoso-Data-Generator-V2), MIT). It's downloaded by the scripts and isn't stored in this repo. All people and companies are fictitious.
 
 This workshop kit is MIT-licensed (see `LICENSE`). Note that `answer_key/` is public: it's presenter material, not a secret.
+
+The reference report includes Microsoft's `CY25SU12.json` base theme from [Microsoft Fabric samples](https://github.com/microsoft/fabric-samples/tree/main/docs-samples/data-science/enrich-powerbi-report-with-machine-learning). Copyright (c) Microsoft Corporation. The [MIT license](LICENSE) also applies to that file.

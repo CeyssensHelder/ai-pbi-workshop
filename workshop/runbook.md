@@ -4,6 +4,8 @@
 
 **Before you start:** the repo is at its reset point, `pbi/ContosoWorkshop.pbip` is open in Desktop, the Claude desktop app is open in this folder, the MCP connection has been tested, and the screen is zoomed to 125%.
 
+During rehearsal, also open `pbi/AlderwakePress.pbip` and choose **Home → Refresh**. Its model contains eight fictional records. With no selections the reference shows 48,000 copies and a 58.3% print share. Keep the two report names visible when switching windows.
+
 ---
 
 ## 0:00–0:08 · Why this matters (slides or talk)
@@ -48,7 +50,29 @@ I'm presenting to the sales leadership. I need a one-page overview of how we did
 
 **Fallback:** if the page fails to render, show the numbers Claude verified (the DAX query results) and build one visual by hand, describing it as "AI did the model, I did the layout". That's also the honest picture of today's tools.
 
-## 0:47–0:53 · Deliberate failure: ambiguity
+## 0:47–0:55 · The story works. Now give it our company style (Skills 3 and 4)
+
+*Business user:* “This tells the right story. It still doesn't look like one of our reports.” Show the finished Contoso page and capture a screenshot with its current slicers and KPI values. Switch to the Alderwake Press circulation review. Point out the paper-colored canvas, green masthead, serif headline and copper in the chart.
+
+**Retrieve the style.** Prompt:
+
+```
+Use pbi/AlderwakePress.pbip as our company style reference. Save its reusable theme and appearance notes in pbi/style-kit/. What makes this look like an Alderwake report?
+```
+
+Show the theme and the masthead entry in the notes. The masthead has its own formatting inside a textbox.
+
+**Apply it.** Save and close the Contoso report, checkpoint the generated page, and prompt:
+
+```
+Apply the style in pbi/style-kit/ to pbi/ContosoWorkshop.pbip. Keep the sales story and the Definitions box. Match the headline treatment to our existing headline and preserve the meaning of our chart colors.
+```
+
+Reopen Contoso beside its before screenshot. Ask the audience to identify two visible brand changes, then read the same KPI with the same filters. For the 2023 sales overview, Net Sales should still be **$31,871,231**.
+
+**Fallback:** in Contoso, use Desktop's theme import command and select `pbi/AlderwakePress.Report/StaticResources/RegisteredResources/AlderwakePress.json`. This demonstrates the palette, type and surfaces. Show the donor masthead alongside it to illustrate why local formatting also needs a pass.
+
+## 0:55–0:57 · Deliberate failure: ambiguity
 Prompt:
 ```
 Add a card with our revenue in euros.
@@ -57,7 +81,7 @@ Expected: Claude points out that amounts are USD and asks whether to convert at 
 
 (Optional) Ask a golden question it can answer instantly from the model: `How many active customers did we have in 2023?` → **13,746**.
 
-## 0:53–1:00 · Reality check and Q&A
+## 0:57–1:00 · Reality check and Q&A
 - **Works well:** model cleanup, naming, descriptions, measures, checking numbers, first drafts of pages.
 - **Still needs a human:** business definitions, visual polish, sign-off on numbers.
 - **Governance:** data sent to the AI, licences, the preview status of the tools, version control (git) as the undo button.

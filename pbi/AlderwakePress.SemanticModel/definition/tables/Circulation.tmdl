@@ -1,0 +1,34 @@
+table Circulation
+	measure 'Copies circulated' = SUM(Circulation[Copies])
+		formatString: #,0
+
+	measure 'Print share' = DIVIDE(CALCULATE([Copies circulated], KEEPFILTERS(Circulation[Edition] = "Print")), [Copies circulated])
+		formatString: 0.0%
+
+	column Quarter
+		dataType: string
+		sourceColumn: Quarter
+		summarizeBy: none
+
+	column Edition
+		dataType: string
+		sourceColumn: Edition
+		summarizeBy: none
+
+	column Copies
+		dataType: int64
+		sourceColumn: Copies
+		summarizeBy: sum
+
+	partition Circulation = m
+		mode: import
+		source =
+				#table(
+				    type table [Quarter = text, Edition = text, Copies = Int64.Type],
+				    {
+				        {"Q1", "Print", 4500}, {"Q1", "Digital", 3200},
+				        {"Q2", "Print", 5800}, {"Q2", "Digital", 4000},
+				        {"Q3", "Print", 7400}, {"Q3", "Digital", 5100},
+				        {"Q4", "Print", 10300}, {"Q4", "Digital", 7700}
+				    }
+				)

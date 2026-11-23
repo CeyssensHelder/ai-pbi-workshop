@@ -7,6 +7,7 @@ The audience is mixed: explain in business language, keep DAX and file details o
 - `data/legacy/*.csv`: the source data (cryptic warehouse names, deliberately imperfect). Read-only.
 - `semantic/glossary.yaml`: the business glossary, the single source of truth for what terms mean.
 - `pbi/ContosoWorkshop.pbip`: the Power BI project (semantic model in TMDL, report in PBIR).
+- `pbi/AlderwakePress.pbip`: a separate, premade reference report for the company styling exercise. Keep it as the source when restyling Contoso.
 - `eval/golden_questions.yaml`: questions with known correct answers, used to verify numbers.
 - `answer_key/`: presenter-only. Never read, search or reference it.
 
@@ -25,3 +26,5 @@ The audience is mixed: explain in business language, keep DAX and file details o
 ## Skills
 - `building-semantic-layer`: profile data, agree on business names and KPI definitions with the user, apply them to the model.
 - `building-pbi-report`: turn a business request into verified measures and a report page.
+- `extracting-pbi-style`: capture a reference report's theme and local appearance conventions.
+- `applying-pbi-style`: apply that style to an existing report and check its original story and numbers.
