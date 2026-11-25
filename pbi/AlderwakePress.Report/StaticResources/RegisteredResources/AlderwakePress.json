@@ -2,42 +2,42 @@
   "$schema": "https://raw.githubusercontent.com/microsoft/powerbi-desktop-samples/main/Report%20Theme%20JSON%20Schema/reportThemeSchema-2.149.json",
   "name": "Alderwake Press",
   "dataColors": [
-    "#163F38",
-    "#AD542F",
-    "#597B91",
-    "#82648A",
-    "#9C7829",
-    "#65816C"
+    "#0156F5",
+    "#001F37",
+    "#39B8FF",
+    "#99BBFB",
+    "#FF2215",
+    "#FF9C9C"
   ],
-  "good": "#24704C",
-  "neutral": "#936718",
-  "bad": "#AC4039",
-  "foreground": "#20342F",
-  "foregroundNeutralSecondary": "#515F58",
-  "background": "#FFFCF6",
-  "backgroundLight": "#F3EDE1",
-  "backgroundNeutral": "#D6CDBD",
-  "tableAccent": "#AD542F",
+  "good": "#14845A",
+  "neutral": "#E39B00",
+  "bad": "#FF2215",
+  "foreground": "#001F37",
+  "foregroundNeutralSecondary": "#425B76",
+  "background": "#FFFFFF",
+  "backgroundLight": "#E5EEFE",
+  "backgroundNeutral": "#CCDDFC",
+  "tableAccent": "#0156F5",
   "textClasses": {
     "title": {
-      "fontFace": "Georgia",
-      "fontSize": 16,
-      "color": "#163F38"
+      "fontFace": "Century Gothic",
+      "fontSize": 15,
+      "color": "#001F37"
     },
     "header": {
-      "fontFace": "Segoe UI Semibold",
+      "fontFace": "Century Gothic",
       "fontSize": 12,
-      "color": "#163F38"
+      "color": "#001F37"
     },
     "label": {
-      "fontFace": "Segoe UI",
+      "fontFace": "Century Gothic",
       "fontSize": 11,
-      "color": "#20342F"
+      "color": "#425B76"
     },
     "callout": {
-      "fontFace": "Georgia",
-      "fontSize": 38,
-      "color": "#163F38"
+      "fontFace": "Century Gothic",
+      "fontSize": 40,
+      "color": "#001F37"
     }
   },
   "visualStyles": {
@@ -47,7 +47,7 @@
           {
             "color": {
               "solid": {
-                "color": "#F3EDE1"
+                "color": "#E5EEFE"
               }
             },
             "transparency": 0
@@ -59,11 +59,12 @@
       "*": {
         "title": [
           {
-            "fontFamily": "Georgia",
-            "fontSize": 16,
+            "fontFamily": "Century Gothic",
+            "fontSize": 15,
+            "bold": true,
             "fontColor": {
               "solid": {
-                "color": "#163F38"
+                "color": "#001F37"
               }
             }
           }
@@ -73,7 +74,7 @@
             "show": true,
             "color": {
               "solid": {
-                "color": "#FFFCF6"
+                "color": "#FFFFFF"
               }
             },
             "transparency": 0
@@ -84,10 +85,18 @@
             "show": true,
             "color": {
               "solid": {
-                "color": "#D6CDBD"
+                "color": "#CCDDFC"
               }
             },
-            "radius": 0
+            "radius": 14
+          }
+        ],
+        "padding": [
+          {
+            "top": 16,
+            "bottom": 16,
+            "left": 18,
+            "right": 18
           }
         ],
         "dropShadow": [
@@ -101,7 +110,34 @@
       "*": {
         "legend": [
           {
-            "position": "Top"
+            "position": "TopRight",
+            "fontFamily": "Century Gothic",
+            "fontSize": 11
+          }
+        ],
+        "categoryAxis": [
+          {
+            "fontFamily": "Century Gothic",
+            "labelColor": {
+              "solid": {
+                "color": "#425B76"
+              }
+            }
+          }
+        ],
+        "valueAxis": [
+          {
+            "fontFamily": "Century Gothic",
+            "labelColor": {
+              "solid": {
+                "color": "#425B76"
+              }
+            },
+            "gridlineColor": {
+              "solid": {
+                "color": "#E5EEFE"
+              }
+            }
           }
         ]
       }
@@ -111,15 +147,26 @@
         "value": [
           {
             "$id": "default",
-            "fontFamily": "Georgia",
-            "fontSize": 38
+            "fontFamily": "Century Gothic",
+            "fontSize": 40,
+            "bold": true,
+            "fontColor": {
+              "solid": {
+                "color": "#001F37"
+              }
+            }
           }
         ],
         "label": [
           {
             "$id": "default",
-            "fontFamily": "Segoe UI",
-            "fontSize": 13
+            "fontFamily": "Century Gothic",
+            "fontSize": 12,
+            "fontColor": {
+              "solid": {
+                "color": "#0156F5"
+              }
+            }
           }
         ]
       }

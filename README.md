@@ -14,7 +14,7 @@ A 1-hour internal workshop showing how business users (finance, compliance, sale
 | `workshop/runbook.md` | Agenda, exact prompts, fallbacks and talking points for the presenters |
 | `.claude/skills/building-semantic-layer/` | Skill 1: profile the data → interview the user → glossary → apply to the model |
 | `.claude/skills/building-pbi-report/` | Skill 2: business request → verified measures → report page |
-| [Alderwake Press reference report](pbi/AlderwakePress.pbip) | A fictional publisher's circulation review with an editorial masthead, KPI cards, and a quarterly chart. The data is embedded. |
+| [Alderwake Press reference report](pbi/AlderwakePress.pbip) | A fictional publisher's circulation review in our house style (navy masthead, blue palette, rounded cards), with KPI cards and a quarterly chart. The data is embedded. |
 | `.claude/skills/extracting-pbi-style/` | Skill 3 captures the active theme and any local formatting that gives the reference its identity |
 | `.claude/skills/applying-pbi-style/` | Skill 4 applies that style to another report and checks the existing story and numbers |
 | `semantic/glossary.fallback.yaml` | Complete, confirmed glossary (demo fallback, and an example of the target result) |

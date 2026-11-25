@@ -52,7 +52,7 @@ I'm presenting to the sales leadership. I need a one-page overview of how we did
 
 ## 0:47–0:55 · The story works. Now give it our company style (Skills 3 and 4)
 
-*Business user:* “This tells the right story. It still doesn't look like one of our reports.” Show the finished Contoso page and capture a screenshot with its current slicers and KPI values. Switch to the Alderwake Press circulation review. Point out the paper-colored canvas, green masthead, serif headline and copper in the chart.
+*Business user:* “This tells the right story. It still doesn't look like one of our reports.” Show the finished Contoso page and capture a screenshot with its current slicers and KPI values. Switch to the Alderwake Press circulation review. Point out the light-blue canvas, navy masthead with its bright-blue label line, rounded white cards, geometric headline font and the blue-and-navy chart.
 
 **Retrieve the style.** Prompt:
 

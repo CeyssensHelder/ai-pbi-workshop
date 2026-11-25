@@ -21,9 +21,10 @@
                   {
                     "value": "ALDERWAKE PRESS    /    ANNUAL CIRCULATION REVIEW    /    2025",
                     "textStyle": {
-                      "fontFamily": "Segoe UI Semibold",
-                      "fontSize": "12pt",
-                      "color": "#F5CF9B"
+                      "fontFamily": "Century Gothic",
+                      "fontWeight": "bold",
+                      "fontSize": "11pt",
+                      "color": "#39B8FF"
                     }
                   }
                 ]
@@ -33,9 +34,10 @@
                   {
                     "value": "Print led circulation in every quarter",
                     "textStyle": {
-                      "fontFamily": "Georgia",
-                      "fontSize": "32pt",
-                      "color": "#FFFCF6"
+                      "fontFamily": "Century Gothic",
+                      "fontWeight": "bold",
+                      "fontSize": "30pt",
+                      "color": "#FFFFFF"
                     }
                   }
                 ]
@@ -61,7 +63,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#163F38'"
+                      "Value": "'#001F37'"
                     }
                   }
                 }
@@ -83,7 +85,25 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#001F37'"
+                    }
+                  }
+                }
+              }
+            },
+            "radius": {
+              "expr": {
+                "Literal": {
+                  "Value": "14D"
                 }
               }
             }
@@ -96,28 +116,28 @@
             "top": {
               "expr": {
                 "Literal": {
-                  "Value": "18D"
+                  "Value": "22D"
                 }
               }
             },
             "left": {
               "expr": {
                 "Literal": {
-                  "Value": "18D"
+                  "Value": "28D"
                 }
               }
             },
             "right": {
               "expr": {
                 "Literal": {
-                  "Value": "18D"
+                  "Value": "28D"
                 }
               }
             },
             "bottom": {
               "expr": {
                 "Literal": {
-                  "Value": "18D"
+                  "Value": "22D"
                 }
               }
             }
